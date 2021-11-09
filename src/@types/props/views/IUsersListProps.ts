@@ -1,4 +1,4 @@
-import { IUserEntity } from "../entities/IUserEntity";
+import { IUserEntity } from "../../entities/IUserEntity";
 
 export interface IUsersListProps {
   isFetchingData: boolean,

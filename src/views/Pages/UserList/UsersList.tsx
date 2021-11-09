@@ -1,5 +1,5 @@
 import { IUserEntity } from "../../../@types/entities/IUserEntity";
-import { IUsersListProps } from "../../../@types/props/IUsersListProps";
+import { IUsersListProps } from "../../../@types/props/views/IUsersListProps";
 
 export default function UsersList(props: IUsersListProps) {
   const { isFetchingData, users, onRefreshUserlist } = props;
@@ -28,7 +28,7 @@ export default function UsersList(props: IUsersListProps) {
             <div className="collapse" id="collapseExample">
               <div className="card card-body">
                 {users.map((user) => (
-                  <UserlistRow user={user} />
+                  <UserlistRow key={user.id} user={user} />
                 ))}
               </div>
             </div>

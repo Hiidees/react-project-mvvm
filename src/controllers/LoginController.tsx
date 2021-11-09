@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
-import ILoginForm from "../@types/forms/ILoginForm";
-import { ILoginControllerProps } from "../@types/props/ILoginControllerProps";
+import { ILoginControllerProps } from "../@types/props/controllers/ILoginControllerProps";
 import Login from "../views/Pages/Login/Login";
 import { useHistory } from "react-router-dom";
 
@@ -8,11 +7,12 @@ export function LoginController(props: ILoginControllerProps) {
   const { LoginViewModel } = props;
   const history = useHistory();
 
-  async function onSubmit(props: ILoginForm): Promise<void> {
-    await LoginViewModel.authenticationAsync(props);
-    console.log(props);
-    if (LoginViewModel._isAuthenticated) {
-      history.push("/userslist"); //una prova
+  async function onSubmit(email: string, password: string) {
+    console.log("Login Controller");
+    await LoginViewModel.fetchSession(email, password);
+
+    if (LoginViewModel.session.token) {
+      history.push("/userslist");
     } else {
       history.push("/");
     }
@@ -20,7 +20,10 @@ export function LoginController(props: ILoginControllerProps) {
 
   return (
     <div>
-      <Login onSubmit={onSubmit}></Login>
+      <Login
+        onSubmit={onSubmit}
+        isAuthenticating={LoginViewModel.isAuthenticating}
+      ></Login>
     </div>
   );
 }

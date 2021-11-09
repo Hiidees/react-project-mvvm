@@ -1,38 +1,42 @@
-import { IAuthEntity } from "../@types/entities/IAuthEntity";
+import axios, {AxiosRequestConfig} from "axios";
+import ISessionEntity from "../@types/entities/ISessionEntity";
+import IAuthPostRequest from "../@types/requests/posts/IAuthPostRequest";
+import IAuthPostResponse from "../@types/responses/posts/IAuthPostResponse";
+import IErrorResponse from "../@types/responses/IErrorResponse";
 
+const URL = "https://localhost:44360/api/auth";
 
-let data: IAuthEntity[] = [{
-    
-    email: "giuseppe.salerno@email.com",
-    password: "Delfino97."
-  }, {
-    
-    email: "marco.carollo@email.com",
-    password: "Elefante98."
-  }, {
-    
-    email: "davide.lobue@email.com",
-    password: "Rinoceronte96."
-  }];
+  export default class AuthAdapter{
 
+    public async fetchSession(email: string, password: string): Promise<ISessionEntity> {
 
-  export class AuthAdapter{
-//evita di fare casino con le interfacce
-    public async checkingUsersAsync(props:IAuthEntity): Promise<boolean> {
-        const {email, password} = props;
-        console.log(props);
-        // Delay data fetching
-        await new Promise((resolve) => {
-          setTimeout(resolve, 2000);
-        });
-        console.log("checkingUsersAsync");
-        var isauth=false;
-        data.map(user => {
-               if((user.email === email) && (user.password === password)){
-                   isauth=true;
-               }
-        })//session fare
+      const data: IAuthPostRequest = {
+        email,
+        password
+      };
+      const requestConfig: AxiosRequestConfig = {
+        method: "post",
+        baseURL: URL,
+        data: data
+      };
+  
+      const res = await axios.request(requestConfig);
+      if (res.status === 200) {
+        console.log("Auth Adapter");
+        const resData = res.data as IAuthPostResponse;
+       
+        console.log(resData);
 
-        return isauth;
+        return {
+          email: resData.email,
+          token: resData.token,
+          
+        } as ISessionEntity;
+      } else {
+        const resData = res.data as IErrorResponse;
+  
+        throw Error(resData.error);
       }
+    }
+    
   }

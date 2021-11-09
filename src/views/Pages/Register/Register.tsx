@@ -11,7 +11,7 @@ export default function Register() {
         </div>
         <div className="col-md-4 text-md-start ms-5 ">
           <form className="row g-3">
-            <div className="form-floating mb-3 col-md-6">
+            <div className="form-floating mb-3 col-md-12">
               <input
                 type="email"
                 className="form-control"
@@ -21,7 +21,7 @@ export default function Register() {
               <label htmlFor="floatingInput">Email address</label>
             </div>
 
-            <div className="form-floating mb-3 col-md-6">
+            <div className="form-floating mb-3 col-md-12">
               <input
                 type="password"
                 className="form-control"

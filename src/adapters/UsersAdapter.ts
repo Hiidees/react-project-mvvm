@@ -40,7 +40,7 @@ export default class UsersAdapter {
 
   updateUser(newUser: IUserEntity): void {
     data.map((user, index) => {
-      if (newUser.id == user.id) {
+      if (newUser.id ===  user.id) {
         data[index] = newUser;
       }
     });
@@ -48,7 +48,7 @@ export default class UsersAdapter {
 
   deleteUser(id: number): void {
     data.map((user, index) => {
-      if (user.id == id) {
+      if (user.id === id) {
         delete data[index];
       }
     });

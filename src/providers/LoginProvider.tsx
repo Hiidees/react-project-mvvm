@@ -1,13 +1,15 @@
-import { LoginController } from '../controllers/LoginController';
-import { LoginViewModel } from '../view-models/LoginViewModel';
-
+import { LoginController } from "../controllers/LoginController";
+import { LoginViewModel } from "../view-models/LoginViewModel";
+import { PageThemeController } from "../controllers/PageThemeController";
 
 export default function LoginProvider() {
   const loginViewModel = new LoginViewModel();
 
   return (
     <div>
-      <LoginController LoginViewModel={loginViewModel}></LoginController>
+      <PageThemeController LoginViewModel={loginViewModel}>
+        <LoginController LoginViewModel={loginViewModel}></LoginController>
+      </PageThemeController>
     </div>
   );
 }

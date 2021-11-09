@@ -1,28 +1,28 @@
-import { IAuthEntity } from "../@types/entities/IAuthEntity";
-import { IUserEntity } from "../@types/entities/IUserEntity";
+import  ISessionEntity  from "../@types/entities/ISessionEntity";
 import { AuthModel } from "../models";
-import { useHistory } from "react-router-dom";
-
 
 
 export class LoginViewModel {
   
-  private authmodel = AuthModel.getInstance();
+  private readonly _authmodel = AuthModel.instance;
+  
+  private static _instance: LoginViewModel;
 
-  public get _user(): IUserEntity | undefined {
-    return this.authmodel._user;
+  public get session(): ISessionEntity{
+    return this._authmodel.session;
   }
 
-  public get _isAuthenticated(): boolean {
-    return this.authmodel._isAuthenticated;
+  public get isAuthenticating(): boolean {
+    return this._authmodel.isAuthenticating;
   }
  
-  public async authenticationAsync(props:IAuthEntity): Promise<void> {
-    await this.authmodel.authenticationAsync(props);
-    console.log("authenticationAsync ViewModel");
-    
-    
-    
+  public async fetchSession(email: string, password: string){
+    console.log("Login ViewModel");
+    await this._authmodel.fetchSession(email, password);
   }
-  
+
+  public flushSession() {
+    this._authmodel.flushSession();
+  }
+
 }

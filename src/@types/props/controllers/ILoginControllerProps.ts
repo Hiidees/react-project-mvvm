@@ -1,4 +1,4 @@
-import { LoginViewModel } from "../../view-models/LoginViewModel";
+import { LoginViewModel } from "../../../view-models/LoginViewModel";
 
 export interface ILoginControllerProps {
   LoginViewModel: LoginViewModel
