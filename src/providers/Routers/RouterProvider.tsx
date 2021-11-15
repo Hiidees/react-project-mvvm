@@ -16,17 +16,17 @@ export default function RouterProvider() {
         <Route exact path="/" component={HomeProvider} />
 
         <GuestRouter
-          loginViewModel={loginViewModel}
+          LoginViewModel={loginViewModel}
           path="/login"
           component={LoginProvider}
         />
         <GuestRouter
-          loginViewModel={loginViewModel}
+          LoginViewModel={loginViewModel}
           path="/signup"
           component={RegisterProvider}
         />
         <RegisteredRouter
-          loginViewModel={loginViewModel}
+          LoginViewModel={loginViewModel}
           path="/userslist"
           component={UsersListProvider}
         />

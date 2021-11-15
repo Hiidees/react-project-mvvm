@@ -2,25 +2,30 @@ import { observer } from "mobx-react-lite";
 import { ILoginControllerProps } from "../../@types/props/controllers/ILoginControllerProps";
 import Register from "../../views/Pages/Register/Register";
 import { useHistory } from "react-router-dom";
+import { ISignupControllerProps } from "../../@types/props/controllers/ISignupControllerProps";
 
-export function RegisterController() {
-  /*  const { RegisterViewModel } = props;
+export function RegisterController(props: ISignupControllerProps) {
+  const { LoginViewModel } = props;
   const history = useHistory();
 
   async function onSubmit(email: string, password: string) {
-    console.log("Register Controller");
-    await RegisterViewModel.fetchSession(email, password);
+    await LoginViewModel.fetchSession(email, password);
 
-    if (RegisterViewModel.session.token) {
+    if (LoginViewModel.session.accessToken) {
       history.push("/userslist");
     } else {
-      history.push("/");
+      history.push("/signup");
     }
-  } */
+  }
+  function onClickCloseAlert() {
+    LoginViewModel.flushErrorMessages();
+  }
 
   return (
     <div>
-      <Register></Register>
+      <div>
+        <Register></Register>
+      </div>
     </div>
   );
 }

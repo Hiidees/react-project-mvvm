@@ -2,16 +2,16 @@ import  ISessionEntity  from "../@types/entities/ISessionEntity";
 import { SessionModel } from "../models";
 
 
-export class LoginViewModel {
+export class SessionViewModel {
   
   private readonly _sessionmodel = SessionModel.getInstance();
-  private static thisInstance: LoginViewModel;
+  private static thisInstance: SessionViewModel;
 
-  public static getInstance(): LoginViewModel {
-    if (!LoginViewModel.thisInstance) {
-        LoginViewModel.thisInstance = new LoginViewModel();
+  public static getInstance(): SessionViewModel {
+    if (!SessionViewModel.thisInstance) {
+        SessionViewModel.thisInstance = new SessionViewModel();
     }
-    return LoginViewModel.thisInstance;
+    return SessionViewModel.thisInstance;
   }
 
   public get session(): ISessionEntity{

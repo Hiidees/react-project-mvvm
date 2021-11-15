@@ -1,7 +1,5 @@
 import { LoginViewModel } from "../../../view-models/LoginViewModel";
 
-export default interface IGuestRouterProps {
+export interface ISignupControllerProps {
   LoginViewModel: LoginViewModel
-  component: React.ComponentType<any>;
-  path: string;
 }

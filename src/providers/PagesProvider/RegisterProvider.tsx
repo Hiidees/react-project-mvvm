@@ -1,5 +1,4 @@
 import { default as RegisterController } from "../../controllers/pages/RegisterController";
-import UsersViewModel from "../../view-models/UsersViewModel";
 import { LoginViewModel } from "../../view-models/LoginViewModel";
 import { PageThemeController } from "../../controllers/theme/PageThemeController";
 
@@ -10,7 +9,7 @@ export default function RegisterProvider() {
   return (
     <div>
       <PageThemeController LoginViewModel={loginViewModel}>
-        <RegisterController />
+        <RegisterController LoginViewModel={loginViewModel} />
       </PageThemeController>
     </div>
   );

@@ -4,8 +4,8 @@ import Cookies from 'universal-cookie';
 import AuthHelper from "../../helpers/AuthHelper";
 import AuthenticationError from "../../utils/errors/AuthenticationError";
 
-export default class AuthModel{
-  private static _instance: AuthModel;
+export default class SessionModel{
+  private static _instance: SessionModel;
 
   private readonly _cookies = new Cookies();
   private readonly _authHelper = new AuthHelper();
@@ -20,12 +20,12 @@ export default class AuthModel{
     this._session = this._cookies.get("session") ?? {} as ISessionEntity
   }
 
-  public static getInstance(): AuthModel { 
-    if (!AuthModel._instance) {
-        AuthModel._instance = new AuthModel();
+  public static getInstance(): SessionModel { 
+    if (!SessionModel._instance) {
+        SessionModel._instance = new SessionModel();
     }
 
-    return AuthModel._instance;
+    return SessionModel._instance;
   }
   
   public get errorMessages(): string[] {

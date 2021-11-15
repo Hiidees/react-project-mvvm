@@ -8,6 +8,7 @@ import {
   ListItemAvatar,
   CardMedia,
   Alert,
+  Snackbar,
 } from "@mui/material";
 
 import {
@@ -19,10 +20,12 @@ import {
   MyButton,
   GridImage,
 } from "../../Components/@theme/@styles/LoginStyle";
+import { useState } from "react";
 
 export default function Login(props: ILoginViewProps) {
   const { errorMessages, onSubmit, isLogginIn, onClickCloseAlert } = props;
 
+  const [open, setOpen] = useState(true);
   const {
     register,
     handleSubmit,
@@ -39,14 +42,20 @@ export default function Login(props: ILoginViewProps) {
           <ListAvatarText primary="Login" secondary="Welcome back!" />
         </ListAvatar>
         {errorMessages.map((errorMessage, index) => (
-          <Alert
-            key={index}
-            sx={{ marginBottom: "15px" }}
-            severity="error"
-            onClose={() => onClickCloseAlert()}
-          >
-            {errorMessage}
-          </Alert>
+          <Snackbar open={open}>
+            <Alert
+              key={index}
+              sx={{ marginBottom: "15px" }}
+              severity="error"
+              variant="filled"
+              onClose={() => {
+                setOpen(!open);
+                onClickCloseAlert();
+              }}
+            >
+              {errorMessage}
+            </Alert>
+          </Snackbar>
         ))}
         <FormControl fullWidth>
           <TextField

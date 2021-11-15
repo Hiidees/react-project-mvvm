@@ -72,6 +72,10 @@ export default class UsersModel {
     }
   }
 
+  public async addUserAsync(email:string, password:string): Promise<void>{
+    //addare user
+  }
+
   public flushErrorMessages() {
     this.errorMessages = [];
   }
