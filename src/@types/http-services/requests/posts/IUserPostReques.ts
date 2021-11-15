@@ -1,4 +1,4 @@
 export default interface IUserPostRequest {
     email: string;
-    token: string;
+    password: string;
   }

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { default as UsersListView } from "../views/Pages/UserList/UsersList";
-import { IUsersListControllerProps } from "../@types/props/controllers/IUsersListControllerProps";
+import { default as UsersListView } from "../../views/Pages/UserList/UsersList";
+import { IUsersListControllerProps } from "../../@types/props/controllers/IUsersListControllerProps";
 
 function UsersListController(props: IUsersListControllerProps) {
   const { usersViewModel } = props;
@@ -11,6 +11,7 @@ function UsersListController(props: IUsersListControllerProps) {
 
   return (
     <div>
+      {console.log("UserController")}
       <UsersListView
         users={usersViewModel.users}
         isFetchingData={usersViewModel._isFetchingData}

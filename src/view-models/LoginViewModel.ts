@@ -4,39 +4,41 @@ import { AuthModel } from "../models";
 
 export class LoginViewModel {
   
-  private readonly _authmodel = AuthModel.instance;
-
-
-  
-  private static _instance: LoginViewModel;
+  private readonly _authmodel = AuthModel.getInstance();
+  private static thisInstance: LoginViewModel;
 
   public static getInstance(): LoginViewModel {
-    if (!LoginViewModel._instance) {
-      LoginViewModel._instance = new LoginViewModel();
+    if (!LoginViewModel.thisInstance) {
+      LoginViewModel.thisInstance = new LoginViewModel();
     }
-    return LoginViewModel._instance;
+    return LoginViewModel.thisInstance;
   }
 
   public get session(): ISessionEntity{
     return this._authmodel.session;
   }
 
-  public get isAuthenticating(): boolean {
-    
-    return this._authmodel.isAuthenticating;
+  public get isLogginIn(): boolean {
+    console.log("VM Loggingin ",this._authmodel.isLoggingIn)
+    return this._authmodel.isLoggingOut;
+
   }
-  public get errorMessage(): string {
-    return this._authmodel.errorMessage;
+
+  public get errorMessages(): string[] {
+    return this._authmodel.errorMessages;
   }
 
   public async fetchSession(email: string, password: string){
     await this._authmodel.fetchSession(email, password);
-    console.log("viewmodel", this._authmodel.isAuthenticating)
+    
   }
 
-  public flushSession() {
-    this._authmodel.flushSession();
+  public async flushSession() {
+    await this._authmodel.flushSession();
   }
 
+  public flushErrorMessages() {
+    this._authmodel.flushErrorMessages();
+  }
   
 }

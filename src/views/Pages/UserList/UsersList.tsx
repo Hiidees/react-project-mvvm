@@ -3,7 +3,9 @@ import { IUsersListProps } from "../../../@types/props/views/IUsersListProps";
 
 export default function UsersList(props: IUsersListProps) {
   const { isFetchingData, users, onRefreshUserlist } = props;
-
+  {
+    console.log("UserView");
+  }
   return (
     <div>
       <div className="container-lg my-5 p-5">

@@ -21,7 +21,7 @@ import {
 } from "../../Components/@theme/@styles/LoginStyle";
 
 export default function Login(props: ILoginViewProps) {
-  const { errorMessage, onSubmit, isAuthenticating } = props;
+  const { errorMessages, onSubmit, isLogginIn, onClickCloseAlert } = props;
 
   const {
     register,
@@ -38,15 +38,16 @@ export default function Login(props: ILoginViewProps) {
           </ListItemAvatar>
           <ListAvatarText primary="Login" secondary="Welcome back!" />
         </ListAvatar>
-        {errorMessage && (
+        {errorMessages.map((errorMessage, index) => (
           <Alert
-            variant="filled"
-            severity="error"
+            key={index}
             sx={{ marginBottom: "15px" }}
+            severity="error"
+            onClose={() => onClickCloseAlert()}
           >
             {errorMessage}
           </Alert>
-        )}
+        ))}
         <FormControl fullWidth>
           <TextField
             label="Email"
@@ -60,7 +61,7 @@ export default function Login(props: ILoginViewProps) {
             })}
             error={!!errors.email}
             helperText={errors.email && "Invalid email."}
-            disabled={isAuthenticating}
+            disabled={isLogginIn}
           />
 
           <HelperForm id="my-helper-text">
@@ -78,7 +79,7 @@ export default function Login(props: ILoginViewProps) {
             })}
             error={!!errors.password}
             helperText={errors.password && "Invalid password."}
-            disabled={isAuthenticating}
+            disabled={isLogginIn}
           />
 
           <MyButton
@@ -87,7 +88,7 @@ export default function Login(props: ILoginViewProps) {
             )}
             type="submit"
             variant="contained"
-            disabled={isAuthenticating}
+            disabled={isLogginIn}
           >
             Login
           </MyButton>

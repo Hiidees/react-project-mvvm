@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { ILoginControllerProps } from "../@types/props/controllers/ILoginControllerProps";
-import Login from "../views/Pages/Login/Login";
+import { ILoginControllerProps } from "../../@types/props/controllers/ILoginControllerProps";
+import Login from "../../views/Pages/Login/Login";
 import { useHistory } from "react-router-dom";
 
 export function LoginController(props: ILoginControllerProps) {
@@ -9,21 +9,25 @@ export function LoginController(props: ILoginControllerProps) {
 
   async function onSubmit(email: string, password: string) {
     await LoginViewModel.fetchSession(email, password);
-    console.log(LoginViewModel.isAuthenticating);
+    console.log("Controller", LoginViewModel.isLogginIn);
 
     if (LoginViewModel.session.accessToken) {
       history.push("/userslist");
     } else {
-      history.push("/");
+      history.push("/login");
     }
+  }
+  function onClickCloseAlert() {
+    LoginViewModel.flushErrorMessages();
   }
 
   return (
     <div>
       <Login
-        errorMessage={LoginViewModel.errorMessage}
+        errorMessages={LoginViewModel.errorMessages}
         onSubmit={onSubmit}
-        isAuthenticating={LoginViewModel.isAuthenticating}
+        onClickCloseAlert={onClickCloseAlert}
+        isLogginIn={LoginViewModel.isLogginIn}
       ></Login>
     </div>
   );

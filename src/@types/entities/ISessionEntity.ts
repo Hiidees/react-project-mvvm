@@ -1,5 +1,7 @@
+import { IUserEntity } from "./IUserEntity";
+
 export default interface ISessionEntity {
-    email: string;
+    user: IUserEntity;
     accessToken: string;
     refreshToken: string
   }

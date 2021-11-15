@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
-import { IPageThemeControllerProps } from "../@types/props/controllers/IPageThemeControllerProps";
-import PageTheme from "../views/Pages/Theme/PageTheme";
+import { IPageThemeControllerProps } from "../../@types/props/controllers/IPageThemeControllerProps";
+import PageTheme from "../../views/Pages/Theme/PageTheme";
 
 export function PageThemeController(
   props: React.PropsWithChildren<IPageThemeControllerProps>
@@ -15,7 +15,7 @@ export function PageThemeController(
     history.push("/");
   }
   async function onClickLogin() {
-    history.push("/");
+    history.push("/login");
   }
   async function onClickSignup() {
     history.push("/signup");

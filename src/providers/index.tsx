@@ -1,3 +1,3 @@
-export { default as LoginProvider } from "./LoginProvider";
-export { default as UsersListProvider } from "./UsersListProvider";
-export { default as RegisterProvider } from "./RegisterProvider";
+export { default as LoginProvider } from "./PagesProvider/LoginProvider";
+export { default as UsersListProvider } from "./PagesProvider/UsersListProvider";
+export { default as RegisterProvider } from "./PagesProvider/RegisterProvider";

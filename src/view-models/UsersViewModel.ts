@@ -10,6 +10,7 @@ export default class UsersViewModel {
 
   public get _isFetchingData(): boolean {
     return this.usersModel._isFetchingData;
+    
   }
 
   public async refreshDataAsync(): Promise<void> {

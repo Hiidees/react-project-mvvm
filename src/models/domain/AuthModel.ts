@@ -1,26 +1,26 @@
 import { makeAutoObservable } from "mobx";
 import  ISessionEntity  from "../../@types/entities/ISessionEntity";
 import Cookies from 'universal-cookie';
-import  AuthAdapter  from "../../adapters/AuthAdapter"; 
-import AuthError from "../errors/AuthError";
+import AuthHelper from "../../helpers/AuthHelper";
+import AuthenticationError from "../../utils/errors/AuthenticationError";
 
 export default class AuthModel{
   private static _instance: AuthModel;
 
   private readonly _cookies = new Cookies();
-  private readonly _adapter = new AuthAdapter();
+  private readonly _authHelper = new AuthHelper();
  
-  private _errorMessage = '';
-  private _isAuthenticating = false; 
+  private _errorMessages: string[] =[];
   private _isLoggingOut = false;
-  private _session = (this._cookies.get("session") ?? {}) as ISessionEntity;
-
+  private _isLoggingIn = false;
+  private _session: ISessionEntity;
 
   private constructor() {
     makeAutoObservable(this);
+    this._session = this._cookies.get("session") ?? {} as ISessionEntity
   }
 
-  public static get instance(): AuthModel { 
+  public static getInstance(): AuthModel { 
     if (!AuthModel._instance) {
         AuthModel._instance = new AuthModel();
     }
@@ -28,28 +28,32 @@ export default class AuthModel{
     return AuthModel._instance;
   }
   
-  public get errorMessage(): string {
-    return this._errorMessage;
+  public get errorMessages(): string[] {
+    return this._errorMessages;
   }
-  private set errorMessage(value: string) {
-    this._errorMessage = value;
-  }
-
-  public set isAuthenticating(isFetchingSession: boolean) {
-    this._isAuthenticating = isFetchingSession;
+  private set errorMessages(value: string[]) {
+    this._errorMessages = value;
   }
 
-  public get isAuthenticating(): boolean {
-    return this._isAuthenticating;
-  }
 
   public get session(): ISessionEntity {
     return this._session;
   }
+  
 
   public set session(session: ISessionEntity) {
     this._session = session;
   }
+
+
+  public get isLoggingIn(): boolean {
+    return this._isLoggingIn;
+  }
+  private set isLoggingIn(isLoggingIn: boolean) {
+    this._isLoggingIn = isLoggingIn;
+  }
+
+
 
   public get isLoggingOut(): boolean {
     return this._isLoggingOut;
@@ -62,41 +66,64 @@ export default class AuthModel{
 
   public async fetchSession(email: string, password: string) {
     try {
-      this.errorMessage = "";
-      this.isAuthenticating = true;
-      console.log(AuthModel._instance)
-      console.log(" model ", this.isAuthenticating)
-      this.session = await this._adapter.fetchSession(email, password);
+      this._isLoggingIn = true;
+      this.errorMessages = [];
 
-      this._cookies.set('session', this.session, {path: '/', secure: false});
-      
+      const authResponse = await this._authHelper.authAsync(email, password);
+      this.session = {
+        accessToken: authResponse.data.accessToken,
+        refreshToken: authResponse.data.refreshToken,
+        user: {
+          id: authResponse.data.user.id,
+          email: authResponse.data.user.email,
+          role: {
+            id: authResponse.data.user.role.id,
+            title: authResponse.data.user.role.title,
+            description: authResponse.data.user.role.description
+          }
+        }
+      };
+
+      this._cookies.set('session', this.session, {
+        path: '/',
+        secure: true
+      });
     } catch (err: unknown) {
-      
-      if (err instanceof Error) {
-        this.errorMessage = err.message;
-      } else if (err instanceof AuthError) {
-        this.errorMessage = err.message;
+
+      if (err instanceof AuthenticationError) {
+        this.errorMessages = err.errorResponse.errors;
+      } else if (err instanceof Error) {
+        this.errorMessages = [err.message];
       } else {
-        this.errorMessage = "Unknown error";
+        this.errorMessages = ["Unknown error"];
       }
 
       this.flushSession();
+
     } finally {
-      this.isAuthenticating = false;
+
+     // non funziona
+      this._isLoggingIn = false;
+
     }
   }
 
   public flushSession(){
     try {
       this.isLoggingOut = true;
-      //some async request to server ...
+   
       this._cookies.remove("session");
     } catch (error) {
-      //do nothing
+      
     } finally {
       this.isLoggingOut = false;
       this.session = {} as ISessionEntity;
       
     }
   }
+
+  public flushErrorMessages() {
+    this.errorMessages = [];
+  }
+
 }

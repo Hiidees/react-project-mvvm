@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { ILoginControllerProps } from "../@types/props/controllers/ILoginControllerProps";
-import Register from "../views/Pages/Register/Register";
+import { ILoginControllerProps } from "../../@types/props/controllers/ILoginControllerProps";
+import Register from "../../views/Pages/Register/Register";
 import { useHistory } from "react-router-dom";
 
 export function RegisterController() {
