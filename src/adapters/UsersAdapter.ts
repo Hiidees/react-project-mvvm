@@ -3,13 +3,28 @@ import { IUserEntity } from "../@types/entities/IUserEntity";
 let data: IUserEntity[] = [{
   id: 1,
   email: "giuseppe.salerno@email.com",
+  role: {
+    id: 1,
+    title: "Ciao",
+    description: "Sqwazzer"
+  }
   
 }, {
   id: 2,
   email: "marco.carollo@email.com",
+  role: {
+    id: 2,
+    title: "Ciao",
+    description: "Hide"
+  }
 }, {
   id: 3,
   email: "davide.lobue@email.com",
+  role: {
+    id: 3,
+    title: "Ciao",
+    description: "Davide"
+  }
 
 }];
 
