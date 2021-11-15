@@ -21,7 +21,7 @@ export function PageThemeController(
     history.push("/signup");
   }
   async function onClickUserList() {
-    history.push("/userlist");
+    history.push("/userslist");
   }
 
   return (

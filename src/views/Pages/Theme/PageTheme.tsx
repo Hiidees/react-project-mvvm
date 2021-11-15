@@ -1,5 +1,6 @@
+import { Container } from "@mui/material";
 import IPageThemeViewProps from "../../../@types/props/views/IPageThemeViewProps";
-import Header from "../../Components/Header/Header";
+import NavBar from "../../Components/Header/NavBar";
 
 export default function PageTheme(
   props: React.PropsWithChildren<IPageThemeViewProps>
@@ -14,14 +15,15 @@ export default function PageTheme(
 
   return (
     <div>
-      <Header
+      <NavBar
         session={session}
         onClickLogout={onClickLogout}
         onClickLogin={onClickLogin}
         onClickSignup={onClickSignup}
         onClickUserList={onClickUserList}
       />
-      {props.children}
+
+      <Container maxWidth="md">{props.children} </Container>
     </div>
   );
 }

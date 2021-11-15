@@ -1,4 +1,5 @@
 export default interface ISessionEntity {
     email: string;
-    token: string;
+    accessToken: string;
+    refreshToken: string
   }

@@ -3,15 +3,14 @@ import { IUserEntity } from "../@types/entities/IUserEntity";
 let data: IUserEntity[] = [{
   id: 1,
   email: "giuseppe.salerno@email.com",
-  firstname: "Giuseppe"
+  
 }, {
   id: 2,
   email: "marco.carollo@email.com",
-  firstname: "Marco"
 }, {
   id: 3,
   email: "davide.lobue@email.com",
-  firstname: "Davide"
+
 }];
 
 export default class UsersAdapter {

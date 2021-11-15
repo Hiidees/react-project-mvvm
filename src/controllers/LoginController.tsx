@@ -8,10 +8,10 @@ export function LoginController(props: ILoginControllerProps) {
   const history = useHistory();
 
   async function onSubmit(email: string, password: string) {
-    console.log("Login Controller");
     await LoginViewModel.fetchSession(email, password);
+    console.log(LoginViewModel.isAuthenticating);
 
-    if (LoginViewModel.session.token) {
+    if (LoginViewModel.session.accessToken) {
       history.push("/userslist");
     } else {
       history.push("/");
@@ -21,6 +21,7 @@ export function LoginController(props: ILoginControllerProps) {
   return (
     <div>
       <Login
+        errorMessage={LoginViewModel.errorMessage}
         onSubmit={onSubmit}
         isAuthenticating={LoginViewModel.isAuthenticating}
       ></Login>

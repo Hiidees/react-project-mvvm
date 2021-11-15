@@ -3,8 +3,9 @@ import ISessionEntity from "../@types/entities/ISessionEntity";
 import IAuthPostRequest from "../@types/requests/posts/IAuthPostRequest";
 import IAuthPostResponse from "../@types/responses/posts/IAuthPostResponse";
 import IErrorResponse from "../@types/responses/IErrorResponse";
+import { promises } from "dns";
 
-const URL = "https://localhost:44360/api/auth";
+const URL = "https://base-auth-services.herokuapp.com/api/v1/auth";
 
   export default class AuthAdapter{
 
@@ -21,18 +22,19 @@ const URL = "https://localhost:44360/api/auth";
       };
   
       const res = await axios.request(requestConfig);
+     
+      await new Promise(resolve => setTimeout(resolve, 5000))
       if (res.status === 200) {
-        console.log("Auth Adapter");
         const resData = res.data as IAuthPostResponse;
        
-        console.log(resData);
-
         return {
-          email: resData.email,
-          token: resData.token,
+          email: resData.data.user.email,
+          accessToken: resData.data.accessToken,
+          refreshToken: resData.data.refreshToken
           
         } as ISessionEntity;
       } else {
+        console.log("Qui")
         const resData = res.data as IErrorResponse;
   
         throw Error(resData.error);

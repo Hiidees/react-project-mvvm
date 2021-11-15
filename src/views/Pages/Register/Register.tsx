@@ -1,64 +1,65 @@
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import {
+  Grid,
+  TextField,
+  FormControl,
+  ListItemAvatar,
+  CardMedia,
+  Stack,
+} from "@mui/material";
+
+import {
+  GridSignup,
+  ListAvatar,
+  SignupAvatar,
+  ListAvatarText,
+  MyButton,
+  GridImage,
+} from "../../Components/@theme/@styles/SignupStyle";
 
 export default function Register() {
   return (
-    <div className="container-lg my-5 p-5">
-      <div className="row justify-content-center align-items-center">
-        <div className="col-md-4 d-none d-md-block">
-          <img src="/lion.png" alt="not-found" className="img-fluid " />
-        </div>
-        <div className="col-md-4 text-md-start ms-5 ">
-          <form className="row g-3">
-            <div className="form-floating mb-3 col-md-12">
-              <input
-                type="email"
-                className="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label htmlFor="floatingInput">Email address</label>
-            </div>
+    <GridSignup container spacing={2} alignItems="center">
+      <Grid item xs={12} sm={7} md={6}>
+        <ListAvatar>
+          <ListItemAvatar>
+            <SignupAvatar>R</SignupAvatar>
+          </ListItemAvatar>
+          <ListAvatarText primary="Signup" secondary="Join to us!" />
+        </ListAvatar>
 
-            <div className="form-floating mb-3 col-md-12">
-              <input
-                type="password"
-                className="form-control"
-                id="floatingInput"
-                placeholder="Password"
-              />
-              <label htmlFor="floatingInput">Password</label>
-            </div>
+        <FormControl fullWidth>
+          <Stack spacing={2}>
+            <TextField label="Email" id="outlined-size-normal" size="medium" />
 
-            <div className="form-floating mb-3 col-12">
-              <input
-                type="text"
-                className="form-control"
-                id="floatingInput"
-                placeholder="Firstname"
-              />
-              <label htmlFor="floatingInput">Firstname</label>
-            </div>
+            <TextField
+              label="Password"
+              type="password"
+              id="outlined-size-normal"
+              size="medium"
+            />
 
-            <div className="form-floating mb-3 col-12">
-              <input
-                type="text"
-                className="form-control"
-                id="floatingInput"
-                placeholder="Lastname"
-              />
-              <label htmlFor="floatingInput">Lastname</label>
-            </div>
-
-            <div className="col-12">
-              <button type="submit" className="btn btn-primary">
-                Sign in
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+            <TextField
+              label="Confirm Password"
+              type="password"
+              id="outlined-size-normal"
+              size="medium"
+            />
+            <MyButton type="submit" variant="contained">
+              Signup
+            </MyButton>
+          </Stack>
+        </FormControl>
+      </Grid>
+      <GridImage
+        item
+        display={{ xs: "none", sm: "block", md: "block" }}
+        xs={12}
+        sm={5}
+        md={6}
+      >
+        <CardMedia component="img" image="/koala.png" />
+      </GridImage>
+    </GridSignup>
   );
 }

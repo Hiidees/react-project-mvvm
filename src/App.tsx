@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-//import Footer from "./views/Components/Footer/Footer";
-
+import MainTheme from "./views/Components/@theme/MainTheme";
+import { ThemeProvider } from "@mui/material/styles";
 import {
   LoginProvider,
   UsersListProvider,
@@ -10,7 +10,7 @@ import {
 //On App.tsx we create the link to the provider
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={MainTheme}>
       <Router>
         <Switch>
           <Route exact path="/" component={LoginProvider} />
@@ -18,7 +18,7 @@ function App() {
           <Route exact path="/userslist" component={UsersListProvider} />
         </Switch>
       </Router>
-    </div>
+    </ThemeProvider>
   );
 }
 
