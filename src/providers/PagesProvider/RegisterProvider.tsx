@@ -1,15 +1,16 @@
 import { default as RegisterController } from "../../controllers/pages/RegisterController";
-import { LoginViewModel } from "../../view-models/LoginViewModel";
 import { PageThemeController } from "../../controllers/theme/PageThemeController";
+import { PageThemeViewModel } from "../../view-models/PageThemeViewModel";
+import { SignupViewModel } from "../../view-models/SignupViewModel";
 
 export default function RegisterProvider() {
-  //const registerViewModel = new RegisterViewModel();
-  const loginViewModel = LoginViewModel.getInstance();
+  const pageThemeViewModel = PageThemeViewModel.getInstance();
+  const signupViewModel = SignupViewModel.getInstance();
 
   return (
     <div>
-      <PageThemeController LoginViewModel={loginViewModel}>
-        <RegisterController LoginViewModel={loginViewModel} />
+      <PageThemeController PageThemeViewModel={pageThemeViewModel}>
+        <RegisterController SignupViewModel={signupViewModel} />
       </PageThemeController>
     </div>
   );

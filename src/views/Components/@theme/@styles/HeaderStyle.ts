@@ -35,7 +35,7 @@ const LButton = styled(Button)(({theme}) =>({
   }));
   const MyAppbar = styled(AppBar)(({theme}) =>({
     
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: "#302b30",
     component: "div"
   }));
 

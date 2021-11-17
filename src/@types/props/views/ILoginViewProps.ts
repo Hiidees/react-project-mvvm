@@ -1,6 +1,6 @@
 export default interface ILoginViewProps {
   onSubmit: Function
-  isLogginIn: boolean
+  isLoggingin: boolean
   errorMessages: string[],
   onClickCloseAlert: Function
 

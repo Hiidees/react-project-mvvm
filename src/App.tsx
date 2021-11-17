@@ -13,12 +13,3 @@ function App() {
 }
 
 export default App;
-{
-  /* <Router>
-        <Switch>
-          <Route exact path="/" component={LoginProvider} />
-          <Route exact path="/signup" component={RegisterProvider} />
-          <Route exact path="/userslist" component={UsersListProvider} />
-        </Switch>
-      </Router> */
-}

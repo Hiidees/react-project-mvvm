@@ -16,7 +16,7 @@ export const ListAvatar = styled(ListItem)(({theme}) =>({
 export const SignupAvatar = styled(Avatar)(({theme}) =>({
     width: 70,
     height: 70,
-    backgroundColor: red[500]
+    backgroundColor: "#ee117f"
 
 }));
 
@@ -28,8 +28,10 @@ export const ListAvatarText = styled(ListItemText)(({theme}) =>({
 
 
 export const MyButton = styled(Button)(({theme}) =>({
+    width: 100,
+    margin: "0 auto",
     marginTop: 10,
-    backgroundColor: red[500]
+    backgroundColor: "#ee117f"
 
 }));
 

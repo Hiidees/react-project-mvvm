@@ -1,44 +1,33 @@
-import  ISessionEntity  from "../@types/entities/ISessionEntity";
-import { SessionModel } from "../models";
+import { NewSessionModel } from "../models";
 
-
-export class LoginViewModel {
-  
-  private readonly _sessionmodel = SessionModel.getInstance();
+export default class LoginViewModel {
   private static thisInstance: LoginViewModel;
 
+  private readonly _newsessionModel = NewSessionModel.getInstance();
+
+  private constructor() {
+    //do nothing
+  }
   public static getInstance(): LoginViewModel {
     if (!LoginViewModel.thisInstance) {
-        LoginViewModel.thisInstance = new LoginViewModel();
+      LoginViewModel.thisInstance = new LoginViewModel();
     }
     return LoginViewModel.thisInstance;
   }
 
-  public get session(): ISessionEntity{
-    return this._sessionmodel.session;
-  }
-
-  public get isLogginIn(): boolean {
-    console.log("VM Loggingin ",this._sessionmodel.isLoggingIn)
-    return this._sessionmodel.isLoggingOut;
-
-  }
-
   public get errorMessages(): string[] {
-    return this._sessionmodel.errorMessages;
+    return this._newsessionModel.errorMessages;
+  }
+  public get isLoggingin(): boolean {
+    return this._newsessionModel.isLoggingin;
   }
 
-  public async fetchSession(email: string, password: string){
-    await this._sessionmodel.fetchSession(email, password);
-    
+  public flushErrorMessages(index: number) {
+    this._newsessionModel.flushErrorMessages(index);
   }
 
-  public async flushSession() {
-    await this._sessionmodel.flushSession();
+  public async loginAsync(email: string, password: string) {
+    await this._newsessionModel.loginAsync(email, password);
   }
 
-  public flushErrorMessages() {
-    this._sessionmodel.flushErrorMessages();
-  }
-  
 }

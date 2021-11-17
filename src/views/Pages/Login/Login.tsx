@@ -20,12 +20,10 @@ import {
   MyButton,
   GridImage,
 } from "../../Components/@theme/@styles/LoginStyle";
-import { useState } from "react";
 
 export default function Login(props: ILoginViewProps) {
-  const { errorMessages, onSubmit, isLogginIn, onClickCloseAlert } = props;
+  const { errorMessages, onSubmit, isLoggingin, onClickCloseAlert } = props;
 
-  const [open, setOpen] = useState(true);
   const {
     register,
     handleSubmit,
@@ -42,26 +40,24 @@ export default function Login(props: ILoginViewProps) {
           <ListAvatarText primary="Login" secondary="Welcome back!" />
         </ListAvatar>
         {errorMessages.map((errorMessage, index) => (
-          <Snackbar open={open}>
-            <Alert
-              key={index}
-              sx={{ marginBottom: "15px" }}
-              severity="error"
-              variant="filled"
-              onClose={() => {
-                setOpen(!open);
-                onClickCloseAlert();
-              }}
-            >
-              {errorMessage}
-            </Alert>
-          </Snackbar>
+          <Alert
+            key={index}
+            sx={{ marginBottom: "15px" }}
+            severity="error"
+            variant="filled"
+            onClose={() => {
+              onClickCloseAlert(index);
+            }}
+          >
+            {errorMessage}
+          </Alert>
         ))}
         <FormControl fullWidth>
           <TextField
             label="Email"
             id="outlined-size-normal"
             size="medium"
+            disabled={isLoggingin}
             {...register("email", {
               required: true,
               pattern:
@@ -70,7 +66,6 @@ export default function Login(props: ILoginViewProps) {
             })}
             error={!!errors.email}
             helperText={errors.email && "Invalid email."}
-            disabled={isLogginIn}
           />
 
           <HelperForm id="my-helper-text">
@@ -82,13 +77,13 @@ export default function Login(props: ILoginViewProps) {
             type="password"
             id="outlined-size-normal"
             size="medium"
+            disabled={isLoggingin}
             {...register("password", {
               required: true,
               maxLength: 20,
             })}
             error={!!errors.password}
             helperText={errors.password && "Invalid password."}
-            disabled={isLogginIn}
           />
 
           <MyButton
@@ -96,8 +91,8 @@ export default function Login(props: ILoginViewProps) {
               onSubmit(data.email, data.password)
             )}
             type="submit"
+            disabled={isLoggingin}
             variant="contained"
-            disabled={isLogginIn}
           >
             Login
           </MyButton>
@@ -105,12 +100,12 @@ export default function Login(props: ILoginViewProps) {
       </Grid>
       <GridImage
         item
-        display={{ xs: "none", sm: "block", md: "block" }}
+        display={{ xs: "block", sm: "block", md: "block" }}
         xs={12}
         sm={5}
         md={6}
       >
-        <CardMedia component="img" image="/lion.png" />
+        <CardMedia component="img" image="/blog.svg" />
       </GridImage>
     </GridLogin>
   );

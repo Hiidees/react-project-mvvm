@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import GuestRouter from "../../views/Routers/GuestRouter";
-import { LoginViewModel } from "../../view-models/LoginViewModel";
 import LoginProvider from "../PagesProvider/LoginProvider";
 import RegisterProvider from "../PagesProvider/RegisterProvider";
 import UsersListProvider from "../PagesProvider/UsersListProvider";
 import RegisteredRouter from "../../views/Routers/RegisteredRouter";
 import HomeProvider from "../PagesProvider/HomeProvider";
+import { PageThemeViewModel } from "../../view-models/PageThemeViewModel";
 
 export default function RouterProvider() {
-  const loginViewModel = LoginViewModel.getInstance();
+  const pageThemeViewModel = PageThemeViewModel.getInstance();
 
   return (
     <BrowserRouter>
@@ -16,17 +16,17 @@ export default function RouterProvider() {
         <Route exact path="/" component={HomeProvider} />
 
         <GuestRouter
-          LoginViewModel={loginViewModel}
+          PageThemeViewModel={pageThemeViewModel}
           path="/login"
           component={LoginProvider}
         />
         <GuestRouter
-          LoginViewModel={loginViewModel}
+          PageThemeViewModel={pageThemeViewModel}
           path="/signup"
           component={RegisterProvider}
         />
         <RegisteredRouter
-          LoginViewModel={loginViewModel}
+          PageThemeViewModel={pageThemeViewModel}
           path="/userslist"
           component={UsersListProvider}
         />

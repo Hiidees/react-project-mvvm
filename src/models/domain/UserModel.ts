@@ -1,13 +1,12 @@
-import { makeAutoObservable } from "mobx";
-import UsersHelper from "../../helpers/UserHelper";
-import AuthenticationError from "../../utils/errors/AuthenticationError";
-import ISessionEntity from "../../@types/entities/ISessionEntity";
+import { makeObservable, observable } from "mobx";
+import UserHelper from "../../helpers/UserHelper";
+import SignupError from "../../utils/errors/SignupError";
 import { IUserEntity } from "../../@types/entities/IUserEntity";
 
-export default class UsersModel {
-  private static thisInstance: UsersModel;
+export default class UserModel {
+  private static thisInstance: UserModel;
 
-  private readonly _usersHelper = new UsersHelper();
+  private readonly _userHelper = new UserHelper();
 
   private _errorMessages: string[] = [];
   private _isGettingUser = false;
@@ -28,16 +27,30 @@ export default class UsersModel {
   public set isGettingUser(value) {
     this._isGettingUser = value;
   }
+
+  public get isAddingUser(){
+    return this._isAddingUser;
+  }
+
+  public set isAddingUser(value){
+    this._isAddingUser = value;
+  }
   //#endregion
 
   private constructor() {
-    makeAutoObservable(this);
+    makeObservable<UserModel, "_errorMessages" | "_isGettingUser" | "_isAddingUser" | "_isDeletingUser" | "_isUpdatingUser">(this, {
+      _errorMessages: observable,
+      _isGettingUser: observable,
+      _isAddingUser: observable,
+      _isDeletingUser: observable,
+      _isUpdatingUser: observable,
+    });
   }
-  public static getInstance(): UsersModel {
-    if (!UsersModel.thisInstance) {
-      UsersModel.thisInstance = new UsersModel();
+  public static getInstance(): UserModel {
+    if (!UserModel.thisInstance) {
+      UserModel.thisInstance = new UserModel();
     }
-    return UsersModel.thisInstance;
+    return UserModel.thisInstance;
   }
 
   public async getUserAsync(userId: number): Promise<IUserEntity> {
@@ -45,7 +58,7 @@ export default class UsersModel {
       this.isGettingUser = true;
       this.errorMessages = [];
 
-      const authResponse = await this._usersHelper.getUserAsync(userId);
+      const authResponse = await this._userHelper.getUserAsync(userId);
       const user = {
         id: authResponse.data.id,
         email: authResponse.data.email,
@@ -58,7 +71,7 @@ export default class UsersModel {
 
       return user;
     } catch (err: unknown) {
-      if (err instanceof AuthenticationError) {
+      if (err instanceof SignupError) {
         this.errorMessages = err.errorResponse.errors;
       } else if (err instanceof Error) {
         this.errorMessages = [err.message];
@@ -73,10 +86,46 @@ export default class UsersModel {
   }
 
   public async addUserAsync(email:string, password:string): Promise<void>{
-    //addare user
+    try{
+      this.isAddingUser = true;
+      this.errorMessages = [];
+      
+      
+
+      const addUserResponse = await this._userHelper.signupAsync(email,password);
+      const user = {
+        id: addUserResponse.data.id,
+        email: addUserResponse.data.email,
+        role: {
+          id: addUserResponse.data.role.id,
+          title: addUserResponse.data.role.title,
+          description: addUserResponse.data.role.description
+        }
+      };
+
+     
+      
+    } catch (err: unknown){
+      
+      if (err instanceof SignupError) {
+        this.errorMessages = err.errorResponse.errors;
+      } else if (err instanceof Error) {
+        this.errorMessages = [err.message];
+      } else {
+        this.errorMessages = ["Unknown error"];
+      }
+      throw err;
+
+    } finally {
+
+      this.isAddingUser = false;
+
+    }
   }
 
-  public flushErrorMessages() {
-    this.errorMessages = [];
+  public flushErrorMessages(index: number) {
+    const errorMessagesTmp = [...this.errorMessages];
+    errorMessagesTmp.splice(index,1);
+    this.errorMessages = errorMessagesTmp;
   }
 }

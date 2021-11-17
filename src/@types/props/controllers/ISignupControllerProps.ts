@@ -1,5 +1,5 @@
-import { LoginViewModel } from "../../../view-models/LoginViewModel";
+import { SignupViewModel } from "../../../view-models/SignupViewModel";
 
 export interface ISignupControllerProps {
-  LoginViewModel: LoginViewModel
+  SignupViewModel : SignupViewModel
 }

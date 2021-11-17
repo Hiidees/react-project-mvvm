@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import IPageThemeViewProps from "../../../@types/props/views/IPageThemeViewProps";
-import NavBar from "../../Components/Header/NavBar";
+import NavBar from "../Header/NavBar";
 
 export default function PageTheme(
   props: React.PropsWithChildren<IPageThemeViewProps>
@@ -23,7 +23,9 @@ export default function PageTheme(
         onClickUserList={onClickUserList}
       />
 
-      <Container maxWidth="md">{props.children} </Container>
+      <Container maxWidth="md" sx={{ bgcolor: "#fff4ff", boxShadow: 5 }}>
+        {props.children}{" "}
+      </Container>
     </div>
   );
 }

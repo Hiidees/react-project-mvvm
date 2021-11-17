@@ -1,30 +1,33 @@
 import { observer } from "mobx-react-lite";
-import { ILoginControllerProps } from "../../@types/props/controllers/ILoginControllerProps";
 import Register from "../../views/Pages/Register/Register";
 import { useHistory } from "react-router-dom";
 import { ISignupControllerProps } from "../../@types/props/controllers/ISignupControllerProps";
 
 export function RegisterController(props: ISignupControllerProps) {
-  const { LoginViewModel } = props;
+  const { SignupViewModel } = props;
   const history = useHistory();
 
   async function onSubmit(email: string, password: string) {
-    await LoginViewModel.fetchSession(email, password);
-
-    if (LoginViewModel.session.accessToken) {
-      history.push("/userslist");
-    } else {
-      history.push("/signup");
+    try {
+      await SignupViewModel.addUserAsync(email, password);
+      history.push("/login");
+    } catch (error) {
+      console.log(error);
     }
   }
-  function onClickCloseAlert() {
-    LoginViewModel.flushErrorMessages();
+  function onClickCloseAlert(index: number) {
+    SignupViewModel.flushErrorMessages(index);
   }
 
   return (
     <div>
       <div>
-        <Register></Register>
+        <Register
+          errorMessages={SignupViewModel.errorMessages}
+          onSubmit={onSubmit}
+          onClickCloseAlert={onClickCloseAlert}
+          isAddingUser={SignupViewModel.isAddingUser}
+        ></Register>
       </div>
     </div>
   );

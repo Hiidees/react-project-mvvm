@@ -8,10 +8,9 @@ import {
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import INavbarViewProps from "../../../@types/props/views/INavbarViewProps";
-import { Box } from "@mui/system";
 import TemporaryDrawer from "./Drawer";
 import { Fragment } from "react";
-import { Divider, Stack } from "@mui/material";
+import { Divider } from "@mui/material";
 
 export default function NavBar(props: INavbarViewProps) {
   const {
@@ -29,7 +28,7 @@ export default function NavBar(props: INavbarViewProps) {
         <Toolbar>
           <MyTypography variant="h6">Material UI Testing App</MyTypography>
 
-          {!session.accessToken ? (
+          {!session ? (
             <Fragment>
               <LButton
                 variant="contained"

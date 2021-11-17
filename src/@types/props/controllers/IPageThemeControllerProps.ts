@@ -1,5 +1,6 @@
-import { LoginViewModel } from "../../../view-models/LoginViewModel";
+import { PageThemeViewModel } from "../../../view-models/PageThemeViewModel";
+
 
 export interface IPageThemeControllerProps {
-  LoginViewModel: LoginViewModel
+  PageThemeViewModel: PageThemeViewModel
 }

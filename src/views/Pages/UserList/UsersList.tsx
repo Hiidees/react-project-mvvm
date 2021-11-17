@@ -1,10 +1,7 @@
-import { IUserEntity } from "../../../@types/entities/IUserEntity";
-import { IUsersListProps } from "../../../@types/props/views/IUsersListProps";
-import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-export default function UsersList(props: IUsersListProps) {
+export default function UsersList() {
   return (
     <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
       {itemData.map((item) => (
@@ -71,13 +68,3 @@ const itemData = [
     title: "Bike",
   },
 ];
-
-interface IUserlistRowProps {
-  user: IUserEntity;
-}
-
-function UserlistRow(props: IUserlistRowProps) {
-  const { user } = props;
-
-  return <div className="col-12">{user.email}</div>;
-}

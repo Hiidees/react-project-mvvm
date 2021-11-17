@@ -8,17 +8,16 @@ export function LoginController(props: ILoginControllerProps) {
   const history = useHistory();
 
   async function onSubmit(email: string, password: string) {
-    await LoginViewModel.fetchSession(email, password);
-    console.log("Controller", LoginViewModel.isLogginIn);
-
-    if (LoginViewModel.session.accessToken) {
+    try {
+      await LoginViewModel.loginAsync(email, password);
+      console.log("Controller", LoginViewModel.isLoggingin);
       history.push("/userslist");
-    } else {
+    } catch (error) {
       history.push("/login");
     }
   }
-  function onClickCloseAlert() {
-    LoginViewModel.flushErrorMessages();
+  function onClickCloseAlert(index: number) {
+    LoginViewModel.flushErrorMessages(index);
   }
 
   return (
@@ -27,7 +26,7 @@ export function LoginController(props: ILoginControllerProps) {
         errorMessages={LoginViewModel.errorMessages}
         onSubmit={onSubmit}
         onClickCloseAlert={onClickCloseAlert}
-        isLogginIn={LoginViewModel.isLogginIn}
+        isLoggingin={LoginViewModel.isLoggingin}
       ></Login>
     </div>
   );

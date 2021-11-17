@@ -1,4 +1,3 @@
-import IAuthPostRequest from "../@types/http-services/requests/posts/IAuthPostRequest";
 import ISignupPostRequest from "../@types/http-services/requests/posts/ISignupPostRequest";
 import IUserGetResponse from "../@types/http-services/responses/gets/IUserGetResponse"
 import ISignupPostResponse from "../@types/http-services/responses/posts/ISignupPostResponse";
@@ -31,13 +30,17 @@ export default class UserHelper {
 
   public async signupAsync(email: string, password: string): Promise<ISignupPostResponse>{
     const reqBody = {  //body della richiesta
-      email,
-      password
+      data: {
+        email,
+        password
+      }
+      
     } as ISignupPostRequest;
     
     try{
-
+     
       const response = await this._adapter.postAsync("users",reqBody);
+    
       return response as ISignupPostResponse;
 
     }catch (err: unknown){

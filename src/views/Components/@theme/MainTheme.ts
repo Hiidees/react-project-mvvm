@@ -16,7 +16,7 @@ export default createTheme({
     
     palette: {
       primary: {
-        main: "#a354f5",
+        main: "#790681",
         light: "#bd7fff",
         contrastText: "#fff",
       },

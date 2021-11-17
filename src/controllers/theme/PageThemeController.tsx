@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
 import { IPageThemeControllerProps } from "../../@types/props/controllers/IPageThemeControllerProps";
-import PageTheme from "../../views/Pages/Theme/PageTheme";
+import PageTheme from "../../views/Components/Theme/PageTheme";
 
 export function PageThemeController(
   props: React.PropsWithChildren<IPageThemeControllerProps>
 ) {
-  const { LoginViewModel } = props;
+  const { PageThemeViewModel } = props;
 
   const history = useHistory();
 
   async function onClickLogout() {
-    LoginViewModel.flushSession();
+    PageThemeViewModel.flushSession();
     history.push("/");
   }
   async function onClickLogin() {
@@ -26,7 +26,7 @@ export function PageThemeController(
 
   return (
     <PageTheme
-      session={LoginViewModel.session}
+      session={PageThemeViewModel.session}
       onClickLogout={onClickLogout}
       onClickLogin={onClickLogin}
       onClickSignup={onClickSignup}

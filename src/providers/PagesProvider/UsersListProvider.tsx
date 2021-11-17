@@ -1,17 +1,14 @@
 import { default as UsersListController } from "../../controllers/pages/UsersListController";
-import UsersViewModel from "../../view-models/UsersViewModel";
-import { LoginViewModel } from "../../view-models/LoginViewModel";
 import { PageThemeController } from "../../controllers/theme/PageThemeController";
+import { PageThemeViewModel } from "../../view-models/PageThemeViewModel";
 
 export default function UsersListProvider() {
-  const usersViewModel = new UsersViewModel();
-  const loginViewModel = LoginViewModel.getInstance();
+  const pageThemeViewModel = PageThemeViewModel.getInstance();
 
   return (
     <div>
-      {console.log("UserListProvider")}
-      <PageThemeController LoginViewModel={loginViewModel}>
-        <UsersListController usersViewModel={usersViewModel} />
+      <PageThemeController PageThemeViewModel={pageThemeViewModel}>
+        <UsersListController />
       </PageThemeController>
     </div>
   );

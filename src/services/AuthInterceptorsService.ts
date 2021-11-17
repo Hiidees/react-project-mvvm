@@ -13,7 +13,6 @@ function onRequest(config: AxiosRequestConfig): AxiosRequestConfig {
     "authorization": `bearer ${session.accessToken}`
   };
 }
-console.log(config.headers)
   return config;
   
 }

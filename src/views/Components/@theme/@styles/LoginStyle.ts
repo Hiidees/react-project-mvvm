@@ -16,7 +16,7 @@ export const ListAvatar = styled(ListItem)(({theme}) =>({
 export const LoginAvatar = styled(Avatar)(({theme}) =>({
     width: 70,
     height: 70,
-    backgroundColor: green[500]
+    backgroundColor: "#44cfb0"
 
 }));
 
@@ -31,8 +31,10 @@ export const HelperForm = styled(FormHelperText)(({theme}) =>({
 }));
 
 export const MyButton = styled(Button)(({theme}) =>({
+    width: 100,
+    margin: "0 auto",
     marginTop: 10,
-    backgroundColor: green[500]
+    backgroundColor: "#44cfb0"
 
 }));
 

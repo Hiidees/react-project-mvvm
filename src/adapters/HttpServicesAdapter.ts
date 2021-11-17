@@ -45,7 +45,7 @@ export default class HttpServicesAdapter {
       data: data
     };
     try {
-
+     
       const response = await this._specificAxios.request(requestConfig);
       return response.data;
 

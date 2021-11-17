@@ -1,4 +1,6 @@
 export default interface ISignupPostRequest{
-    email: string,
-    password: string,
+    data: {
+        email: string;
+        password: string;
+      }
 }

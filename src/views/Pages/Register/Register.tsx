@@ -6,6 +6,8 @@ import {
   ListItemAvatar,
   CardMedia,
   Stack,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import {
@@ -31,13 +33,13 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Register(props: ISignupViewProps) {
+  const { errorMessages, onSubmit, onClickCloseAlert, isAddingUser } = props;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignupForm>({ resolver: yupResolver(validationSchema) });
-
-  function onSubmit(email: string, password: string) {}
 
   return (
     <GridSignup container spacing={2} alignItems="center">
@@ -48,13 +50,26 @@ export default function Register(props: ISignupViewProps) {
           </ListItemAvatar>
           <ListAvatarText primary="Signup" secondary="Join to us!" />
         </ListAvatar>
-
+        {errorMessages.map((errorMessage, index) => (
+          <Alert
+            key={index}
+            sx={{ marginBottom: "15px" }}
+            severity="error"
+            variant="filled"
+            onClose={() => {
+              onClickCloseAlert(index);
+            }}
+          >
+            {errorMessage}
+          </Alert>
+        ))}
         <FormControl fullWidth>
           <Stack spacing={2}>
             <TextField
               label="Email"
               id="outlined-size-normal"
               size="medium"
+              disabled={isAddingUser}
               {...register("email", {
                 required: true,
                 pattern:
@@ -70,6 +85,7 @@ export default function Register(props: ISignupViewProps) {
               type="password"
               id="Password"
               size="medium"
+              disabled={isAddingUser}
               {...register("password", {
                 required: true,
                 maxLength: 20,
@@ -83,6 +99,7 @@ export default function Register(props: ISignupViewProps) {
               type="password"
               id="ConfirmPassword"
               size="medium"
+              disabled={isAddingUser}
               {...register("confirmPassword", {
                 required: true,
                 maxLength: 20,
@@ -92,26 +109,27 @@ export default function Register(props: ISignupViewProps) {
                 errors.confirmPassword && errors.confirmPassword?.message
               }
             />
-            <MyButton
-              type="submit"
-              onClick={handleSubmit((data) =>
-                onSubmit(data.email, data.password)
-              )}
-              variant="contained"
-            >
-              Signup
-            </MyButton>
           </Stack>
+          <MyButton
+            type="submit"
+            disabled={isAddingUser}
+            onClick={handleSubmit((data) =>
+              onSubmit(data.email, data.password)
+            )}
+            variant="contained"
+          >
+            Signup
+          </MyButton>
         </FormControl>
       </Grid>
       <GridImage
         item
-        display={{ xs: "none", sm: "block", md: "block" }}
+        display={{ xs: "block", sm: "block", md: "block" }}
         xs={12}
         sm={5}
         md={6}
       >
-        <CardMedia component="img" image="/koala.png" />
+        <CardMedia component="img" image="/Marketing.svg" />
       </GridImage>
     </GridSignup>
   );

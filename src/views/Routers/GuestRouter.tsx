@@ -2,12 +2,12 @@ import { Route, Redirect } from "react-router-dom";
 import IGuestRouterProps from "../../@types/props/router/IGuestRouterProps";
 
 export default function GuestRouter(props: IGuestRouterProps) {
-  const { LoginViewModel, component, path } = props;
-  const token = LoginViewModel.session.accessToken;
+  const { PageThemeViewModel, component, path } = props;
+  const session = PageThemeViewModel.session;
 
-  return !token ? (
+  return !session ? (
     <Route exact path={path} component={component} />
   ) : (
-    <Redirect from={path} to="/" />
+    <Redirect from={path} to="/login" />
   );
 }
