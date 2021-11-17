@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import IPageThemeViewProps from "../../../@types/props/views/IPageThemeViewProps";
 import NavBar from "../Header/NavBar";
+import { ListItemButton, Typography } from "@mui/material";
 
 export default function PageTheme(
   props: React.PropsWithChildren<IPageThemeViewProps>
@@ -11,6 +12,7 @@ export default function PageTheme(
     onClickLogout,
     onClickSignup,
     onClickUserList,
+    handleDrawerClick,
   } = props;
 
   return (
@@ -21,6 +23,7 @@ export default function PageTheme(
         onClickLogin={onClickLogin}
         onClickSignup={onClickSignup}
         onClickUserList={onClickUserList}
+        handleDrawerClick={handleDrawerClick}
       />
 
       <Container maxWidth="md" sx={{ bgcolor: "#fff4ff", boxShadow: 5 }}>

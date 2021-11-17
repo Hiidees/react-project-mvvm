@@ -17,7 +17,7 @@ import {
   ListAvatarText,
   MyButton,
   GridImage,
-} from "../../Components/@theme/@styles/SignupStyle";
+} from "./SignupStyle";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";

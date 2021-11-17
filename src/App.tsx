@@ -1,5 +1,6 @@
-import MainTheme from "./views/Components/@theme/MainTheme";
+import MainTheme from "./MainTheme";
 import { ThemeProvider } from "@mui/material/styles";
+import GlobalStyles from "@mui/material/GlobalStyles";
 
 import RouterProvider from "./providers/Routers/RouterProvider";
 
@@ -7,6 +8,11 @@ import RouterProvider from "./providers/Routers/RouterProvider";
 function App() {
   return (
     <ThemeProvider theme={MainTheme}>
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: "#dacece" },
+        }}
+      />
       <RouterProvider />
     </ThemeProvider>
   );

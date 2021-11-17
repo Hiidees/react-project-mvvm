@@ -13,49 +13,51 @@ export default class AuthHelper {
   //HttpServicesAdapter è l'adapter che gestisce le richieste get, post ecc...
   private readonly _adapter = new HttpServicesAdapter(true);
 
-  public async authAsync(email: string, password: string): Promise<IAuthPostResponse> {
-
-    const reqBody = {  //body della richiesta
+  public async authAsync(
+    email: string,
+    password: string
+  ): Promise<IAuthPostResponse> {
+    const reqBody = {
+      //body della richiesta
       email,
-      password
+      password,
     } as IAuthPostRequest;
 
     try {
-
-      const response = await this._adapter.postAsync("auth", reqBody);   //richiamo metodo post di adapter passando path e body
+      const response = await this._adapter.postAsync("auth", reqBody); //richiamo metodo post di adapter passando path e body
       return response as IAuthPostResponse; //la risposta è di tipo IAuthPostResponse(basato sull'api)
+    } catch (err: unknown) {
+      //catch per qualsiasi tipo di errore
 
-    } catch (err: unknown) { //catch per qualsiasi tipo di errore
+      if (err instanceof ResponseError) {
+        //se l'errore trovato è un'instanza di ResponseError
 
-      if (err instanceof ResponseError) { //se l'errore trovato è un'instanza di ResponseError
-        
         //rilascia un errore della classe AuthenticationError che estende la classe ResponseError
-        throw new AuthenticationError(err.code, err.message, err.errorResponse);  
+        throw new AuthenticationError(err.code, err.message, err.errorResponse);
       } else {
         throw err;
       }
-
     }
   }
 
-  public async refreshTokenAsync(accessToken: string, refreshToken: string): Promise<IAuthPostRefreshTokenResponse>{
-
+  public async refreshTokenAsync(
+    accessToken: string,
+    refreshToken: string
+  ): Promise<IAuthPostRefreshTokenResponse> {
     const reqBody = {
       accessToken,
-      refreshToken
-    } as IAuthPostRefreshTokenRequest
+      refreshToken,
+    } as IAuthPostRefreshTokenRequest;
 
     try {
-      const response = await this._adapter.postAsync("auth", reqBody);
-      return response as IAuthPostRefreshTokenResponse
-    } catch (err: unknown){
-      
-      if(err instanceof ResponseError){
-        throw new AuthenticationError(err.code,err.message,err.errorResponse);
-      } else{
+      const response = await this._adapter.postAsync("auth/refresh", reqBody);
+      return response as IAuthPostRefreshTokenResponse;
+    } catch (err: unknown) {
+      if (err instanceof ResponseError) {
+        throw new AuthenticationError(err.code, err.message, err.errorResponse);
+      } else {
         throw err;
       }
     }
   }
 }
-

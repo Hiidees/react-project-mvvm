@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
 import { IPageThemeControllerProps } from "../../@types/props/controllers/IPageThemeControllerProps";
 import PageTheme from "../../views/Components/Theme/PageTheme";
+import { ListItemButton, Typography } from "@mui/material";
 
 export function PageThemeController(
   props: React.PropsWithChildren<IPageThemeControllerProps>
@@ -14,14 +15,24 @@ export function PageThemeController(
     PageThemeViewModel.flushSession();
     history.push("/");
   }
-  async function onClickLogin() {
+  function onClickLogin() {
     history.push("/login");
   }
-  async function onClickSignup() {
+  function onClickSignup() {
     history.push("/signup");
   }
-  async function onClickUserList() {
+  function onClickUserList() {
     history.push("/userslist");
+  }
+
+  function handleDrawerClick(text: string) {
+    if (text === "Logout") {
+      onClickLogout();
+    }
+    if (text === "User List") {
+      onClickUserList();
+    }
+    //aggiungere user details
   }
 
   return (
@@ -31,6 +42,7 @@ export function PageThemeController(
       onClickLogin={onClickLogin}
       onClickSignup={onClickSignup}
       onClickUserList={onClickUserList}
+      handleDrawerClick={handleDrawerClick}
     >
       {props.children}
     </PageTheme>

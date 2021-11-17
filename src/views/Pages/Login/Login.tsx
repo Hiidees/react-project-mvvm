@@ -19,7 +19,7 @@ import {
   HelperForm,
   MyButton,
   GridImage,
-} from "../../Components/@theme/@styles/LoginStyle";
+} from "./LoginStyle";
 
 export default function Login(props: ILoginViewProps) {
   const { errorMessages, onSubmit, isLoggingin, onClickCloseAlert } = props;

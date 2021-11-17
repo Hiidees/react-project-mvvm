@@ -1,10 +1,5 @@
 import Toolbar from "@mui/material/Toolbar";
-import {
-  LButton,
-  SButton,
-  MyAppbar,
-  MyTypography,
-} from "../@theme/@styles/HeaderStyle";
+import { LButton, SButton, MyAppbar, MyTypography } from "./HeaderStyle";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import INavbarViewProps from "../../../@types/props/views/INavbarViewProps";
@@ -19,6 +14,7 @@ export default function NavBar(props: INavbarViewProps) {
     onClickLogout,
     onClickSignup,
     onClickUserList,
+    handleDrawerClick,
   } = props;
 
   const lista: string[] = ["User List", "User Details", "Logout"];
@@ -53,6 +49,7 @@ export default function NavBar(props: INavbarViewProps) {
               lista={lista}
               onClickLogout={onClickLogout}
               onClickUserList={onClickUserList}
+              handleDrawerClick={handleDrawerClick}
             ></TemporaryDrawer>
           )}
         </Toolbar>
