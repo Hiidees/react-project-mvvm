@@ -1,4 +1,6 @@
+import IAuthPostRefreshTokenRequest from "../@types/http-services/requests/posts/IAuthPostRefreshTokenRequest";
 import IAuthPostRequest from "../@types/http-services/requests/posts/IAuthPostRequest";
+import IAuthPostRefreshTokenResponse from "../@types/http-services/responses/posts/IAuthPostRefreshTokenResponse";
 import IAuthPostResponse from "../@types/http-services/responses/posts/IAuthPostResponse";
 import HttpServicesAdapter from "../adapters/HttpServicesAdapter";
 import AuthenticationError from "../utils/errors/AuthenticationError";
@@ -33,6 +35,26 @@ export default class AuthHelper {
         throw err;
       }
 
+    }
+  }
+
+  public async refreshTokenAsync(accessToken: string, refreshToken: string): Promise<IAuthPostRefreshTokenResponse>{
+
+    const reqBody = {
+      accessToken,
+      refreshToken
+    } as IAuthPostRefreshTokenRequest
+
+    try {
+      const response = await this._adapter.postAsync("auth", reqBody);
+      return response as IAuthPostRefreshTokenResponse
+    } catch (err: unknown){
+      
+      if(err instanceof ResponseError){
+        throw new AuthenticationError(err.code,err.message,err.errorResponse);
+      } else{
+        throw err;
+      }
     }
   }
 }

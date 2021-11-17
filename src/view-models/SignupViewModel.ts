@@ -5,14 +5,14 @@ import {  UserModel } from "../models";
 export class SignupViewModel {
   
   private readonly _userModel = UserModel.getInstance();
-  private static thisInstance: SignupViewModel;
+  /* private static thisInstance: SignupViewModel;
 
   public static getInstance(): SignupViewModel {
     if (!SignupViewModel.thisInstance) {
       SignupViewModel.thisInstance = new SignupViewModel();
     }
     return SignupViewModel.thisInstance;
-  }
+  } */
 
   public get isAddingUser(){
     return this._userModel.isAddingUser

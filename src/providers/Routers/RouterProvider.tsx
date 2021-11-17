@@ -8,7 +8,7 @@ import HomeProvider from "../PagesProvider/HomeProvider";
 import { PageThemeViewModel } from "../../view-models/PageThemeViewModel";
 
 export default function RouterProvider() {
-  const pageThemeViewModel = PageThemeViewModel.getInstance();
+  const pageThemeViewModel = new PageThemeViewModel();
 
   return (
     <BrowserRouter>

@@ -1,6 +1,8 @@
 import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "universal-cookie";
 import ISessionEntity from "../@types/entities/ISessionEntity";
+import IAuthPostRefreshTokenResponse from "../@types/http-services/responses/posts/IAuthPostRefreshTokenResponse";
+import AuthHelper from "../helpers/AuthHelper";
 
 //Interceptors è una funzionalità di Axios per interceptare le richieste in arrivo
 
@@ -25,8 +27,28 @@ function onResponse(response: AxiosResponse): AxiosResponse {
   return response;
 }
 
-function onResponseError(error: AxiosError): Promise<AxiosError> {
+async function onResponseError(error: AxiosError): Promise<AxiosError> {
 
+  if(session && error.code === "401") {
+    try {
+      
+      const authHelper = new AuthHelper();
+
+      const response = await authHelper.refreshTokenAsync(
+        session.accessToken,
+        session.refreshToken
+      ) as IAuthPostRefreshTokenResponse
+
+        session.accessToken = response.accessToken;
+        session.refreshToken = response.refreshToken;
+
+        cookies.set("session", session);
+
+
+    } catch (err: unknown) {
+      
+    }
+  }
 
   return Promise.reject(error);
 }

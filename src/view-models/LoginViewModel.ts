@@ -1,20 +1,17 @@
 import { NewSessionModel } from "../models";
 
 export default class LoginViewModel {
-  private static thisInstance: LoginViewModel;
-
+  /* private static thisInstance: LoginViewModel;
+ */
   private readonly _newsessionModel = NewSessionModel.getInstance();
 
-  private constructor() {
-    //do nothing
-  }
-  public static getInstance(): LoginViewModel {
+  /* public static getInstance(): LoginViewModel {
     if (!LoginViewModel.thisInstance) {
       LoginViewModel.thisInstance = new LoginViewModel();
     }
     return LoginViewModel.thisInstance;
   }
-
+ */
   public get errorMessages(): string[] {
     return this._newsessionModel.errorMessages;
   }

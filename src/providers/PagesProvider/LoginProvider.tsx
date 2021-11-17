@@ -4,8 +4,8 @@ import { PageThemeViewModel } from "../../view-models/PageThemeViewModel";
 import LoginViewModel from "../../view-models/LoginViewModel";
 
 export default function LoginProvider() {
-  const pageThemeViewModel = PageThemeViewModel.getInstance();
-  const loginViewModel = LoginViewModel.getInstance();
+  const pageThemeViewModel = new PageThemeViewModel();
+  const loginViewModel = new LoginViewModel();
 
   return (
     <div>

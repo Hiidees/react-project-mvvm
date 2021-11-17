@@ -34,6 +34,7 @@ export const MyButton = styled(Button)(({theme}) =>({
     width: 100,
     margin: "0 auto",
     marginTop: 10,
+    marginBottom: 10,
     backgroundColor: "#44cfb0"
 
 }));
